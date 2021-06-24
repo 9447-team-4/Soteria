@@ -128,8 +128,8 @@ initPreScript: ""
 gitea:
   admin:
     #existingSecret: gitea-admin-secret
-    username: gitea_admin
-    password: r8sA8CPHD9!bt6d
+    username: admin
+    password: pass
     email: "gitea@local.domain"
 
   metrics:
@@ -168,15 +168,16 @@ gitea:
     #customProfileUrl:
     #customEmailUrl:
 
-  config: {}
-  #  APP_NAME: "Gitea: Git with a cup of tea"
-  #  RUN_MODE: dev
-  #
-  #  server:
-  #    SSH_PORT: 22
-  #
-  #  security:
-  #    PASSWORD_COMPLEXITY: spec
+  config: 
+   APP_NAME: "Gitea: Git with a cup of tea"
+   RUN_MODE: dev
+  
+   server:
+     SSH_PORT: 22
+  
+   security:
+    DISABLE_GIT_HOOKS: false
+
 
   podAnnotations: {}
 
