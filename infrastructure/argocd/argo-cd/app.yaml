@@ -8,12 +8,12 @@ spec:
   source:
     repoURL: https://github.com/9447-team-4/Soteria.git
     targetRevision: HEAD
-    path: infrastructure/argocd/sample-app
+    path: infrastructure/argocd/example-app
     directory:
       recurse: true
   destination:
     server: https://kubernetes.default.svc
-    namespace: sample-app
+    namespace: example-app
   syncPolicy:
     automated:
       prune: false
