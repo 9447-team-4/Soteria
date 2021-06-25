@@ -8,6 +8,9 @@ The Soteria name dreives from the Greek god of safety and salvation, deliverance
 
 OpenVPN -> Gitea Server -> Argo Workflows -> Image Registry -> ArgoCD -> Dev Cluster -> Prod Cluster
 
+![Untitled Diagram](https://user-images.githubusercontent.com/58884456/123414205-f42a0e00-d5f6-11eb-8936-74a341830c2b.jpg)
+
+
 ### Git Server: Gitea
 
 Soteria uses Gitea for the git server hosting all of your code and triggering the CI/CD pipelines.
