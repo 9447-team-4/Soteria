@@ -2,6 +2,8 @@
 
 ArgoCD manifests for the pipeline
 
+create namespace 'argocd' in minikube
+
 Run the following command to install ArgoCD
 `kubectl apply -n argocd -f ./infrastructure/argocd/argo-cd/install.yaml`
 
