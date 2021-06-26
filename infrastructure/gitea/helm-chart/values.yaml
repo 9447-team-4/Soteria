@@ -171,6 +171,8 @@ gitea:
   config: 
    APP_NAME: "Gitea: Git with a cup of tea"
    RUN_MODE: dev
+   webhook:
+    SKIP_TLS_VERIFY: true
   
    server:
      SSH_PORT: 22
