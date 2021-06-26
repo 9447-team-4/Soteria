@@ -2,8 +2,6 @@
 
 To install the Helm Chart from the GitHub Repository, you can use the following commands:
 ```
-git clone git@github.com:9447-team-4/SonarQube.git
-cd SonarQube
 helm dependency update
 kubectl create namespace sonarqube
 helm upgrade --install -f values.yaml -n sonarqube sonarqube ./
