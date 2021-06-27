@@ -16,7 +16,7 @@ Run the following command to fast forward to localhost
 `kubectl port-forward svc/argocd-server -n argocd 8080:443`
 
 Run the following command to obtain the initial admin password for ArgoCD.
-(When logging into the ArgoCD server, the initial id is set to `'admin'`)
+(When logging into the ArgoCD server, the initial id is set to '`admin`')
 
 `kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d && echo`
 

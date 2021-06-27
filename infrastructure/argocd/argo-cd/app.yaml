@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/9447-team-4/Soteria.git
+    repoURL: https://github.com/9447-team-4/Soteria.git 
     targetRevision: HEAD
     path: infrastructure/argocd/example-app
     directory:
@@ -18,3 +18,12 @@ spec:
     automated:
       prune: false
       selfHeal: false
+
+#################
+# usage in gitea: 
+#################
+#
+# http://{server_name}.{namespace}.svc.cluster.local:{portnumber}/path/to/your/deployment/repo.git
+#
+# e.g. http://gitea-charts-http.default.svc.cluster.local:3000/haesun/Deployment.git
+#
