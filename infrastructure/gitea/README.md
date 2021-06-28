@@ -1,6 +1,6 @@
 # Gitea
 
-Gitea is cool
+Gitea, gitea Gitea?
 
 ## Installation
 
@@ -36,3 +36,75 @@ The default admin account is:
     email: "gitea@local.domain"
 
 ```
+
+# Server Side Hooks (GGshield)
+
+## Installation
+
+Make sure python is installed in the gitea/default namespace
+
+ie.
+```
+apk add python3
+```
+OR
+```
+sudo apt-get update
+sudo apt-get install python3
+```
+
+### Server Side Template
+
+The following instructions will make all new repos contain the GG pre-receive hooks.
+
+If you haven't made any repos yet, navigate to the gitea folder and run (copy into
+whatever namespace gitea is in): 
+```
+kubectl cp hooks/ <NAMESPACE>/gitea-charts-0:usr/share/git-core/templates
+```
+Then, get a shell to the gitea namespace, navigate to the template folder and 
+give execute, write and read permissions to all template hooks.
+```
+cd usr/share/git-core/templates/hooks
+chmod -R +rwx *
+```
+
+### Individual Repos
+
+If there are existing repos and you want to add the pre-receive hook there,
+navigate the the gitea UI and:
+
+- Navigate to the repo on an admin account
+- Settings -> git hooks tab
+- Copy the following:
+
+```bash
+#!/bin/bash
+
+export GITGUARDIAN_API_KEY=12c19DfDb724381acbbf0dDb58C36A13fA514efD9cddFff9FC9Ff2201BDE0dAd6f5CA57
+
+# Commit sha with all zeros
+zero_commit="0000000000000000000000000000000000000000"
+
+while read -r oldrev newrev refname; do
+    # Check if a zero sha
+    if [ "${oldrev}" = "${zero_commit}" ]; then
+        # List everything reachable from newrev but not any heads
+        span="$(git for-each-ref --format='%(refname)' 'refs/heads/*' | sed 's/^/\^/') ${newrev}"
+    else
+        span="${oldrev}...${newrev}"
+    fi
+
+    ggshield scan commit-range "${span}" && continue
+
+    echo "ERROR: Your push was rejected because it contained a security incident"
+    echo "ERROR: Please contact your Git administrator if this was a false positive."
+    exit 1
+done
+```
+
+- Edit the pre-receive hook from the gitea UI, paste the above in.
+
+# Dumpster Diver
+
+Shelved (for now)
