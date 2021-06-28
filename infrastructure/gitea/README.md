@@ -31,8 +31,8 @@ The ui is accesible from any browser at localhost:3000
 The default admin account is:
 ```
   admin:
-    username: admin
-    password: pass
+    username: gitea_admin
+    password: r8sA8CPHD9!bt6d
     email: "gitea@local.domain"
 
 ```
