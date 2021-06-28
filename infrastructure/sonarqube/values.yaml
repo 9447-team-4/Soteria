@@ -281,7 +281,7 @@ persistence:
   ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
   ##   GKE, AWS & OpenStack)
   ##
-  storageClass:
+  storageClass: efs-sc
   accessMode: ReadWriteOnce
   size: 5Gi
   uid: 1000
@@ -347,8 +347,8 @@ postgresql:
   persistence:
     enabled: true
     accessMode: ReadWriteOnce
-    size: 20Gi
-    storageClass:
+    size: 10Gi
+    storageClass: efs-sc
   securityContext:
     # For standard Kubernetes deployment, set enabled=true
     # If using OpenShift, enabled=false for restricted SCC and enabled=true for anyuid/nonroot SCC
