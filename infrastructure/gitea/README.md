@@ -53,6 +53,12 @@ sudo apt-get update
 sudo apt-get install python3
 ```
 
+Then, install ggshield:
+
+```python
+pip install ggshield
+```
+
 ### Server Side Template
 
 The following instructions will make all new repos contain the GG pre-receive hooks.
