@@ -36,6 +36,14 @@ Naviagte to http://127.0.0.1:8080/ to view results.
 
 On Jenkins navigate to "Manage Jenkins", click on "Manage Plugins" and install "SonarQube Scanner for Jenkins".
 
+On Jenkins navigate to "Manage Jenkins", click on "Global Tool Configuration".
+
+* Locate "SonarQube Scanner:.  
+* Click "SonarQube Scanner installations", click "Add SonarQube Scanner"  
+* Under SonarQube Scanner.  
+	* Specify "Name" as "sonarqube"  
+	* Click "Install automatically"
+
 On Jenkins navigate to "Manage Jenkins", click on "Configure System".
 
 * Locate "SonarQube servers" in "Configure System".  
