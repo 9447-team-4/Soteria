@@ -18,7 +18,7 @@ helm dependency update
 ```
 Finally, navigate to the root gitea folder and run:
 ```
-helm install gitea-charts helm-chart/ --values helm-chart/values.yaml
+helm install gitea-charts helm-chart/ --values helm-chart/values.yaml --create-namespace gitea
 ```
 This will add 3 pods to your default kubernetes namespace.
 
