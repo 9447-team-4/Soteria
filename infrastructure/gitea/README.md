@@ -36,3 +36,5 @@ The default admin account is:
     email: "gitea@local.domain"
 
 ```
+`
+http://gitea-charts-http.default.svc.cluster.local:3000/gitea_admin/hi.git`
