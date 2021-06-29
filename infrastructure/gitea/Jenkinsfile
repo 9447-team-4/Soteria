@@ -1,0 +1,176 @@
+pipeline {
+    agent {
+        node {
+            label 'testing'
+        }
+    }
+    
+    stages {       
+        stage('Prepare') {
+            steps {
+                checkout([$class: 'GitSCM',
+                branches: [[name: "origin\master"]],
+                doGenerateSubmoduleConfigurations: false,
+                submoduleCfg: [],
+                userRemoteConfigs: [[
+                    url: 'ssh:\\git@git.example.com\argocd-test\argocd-test.git']]
+                ])
+            }
+        }
+        stage ('Docker_Build') {
+            steps {
+                \\ Build the docker image
+                sh'''
+                    $ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d && echo
+                    
+                    $ argocd login localhost:8080 --username admin --password {password} --grpc-web
+                    docker build . -t k8s-debian-test
+                '''
+            }
+        }
+        
+        stage ('Deploy_K8S') {
+             steps {
+                     withCredentials([string(credentialsId: "jenkins-argocd-deploy", variable: 'ARGOCD_AUTH_TOKEN')]) {
+                        sh '''
+                        // We won't use below command template since we are using minikube for the demo.
+                        // ARGOCD_SERVER="argocd-prod.example.com"
+                        // APP_NAME="debian-test-k8s"
+                        // CONTAINER="k8s-debian-test"
+                        // REGION="eu-west-1"
+                        // AWS_ACCOUNT="$ACCOUNT_NUMBER"
+                        // AWS_ENVIRONMENT="staging"
+
+                        // $(aws ecr get-login --region $REGION --profile $AWS_ENVIRONMENT --no-include-email)
+                        
+                        # Deploy image to ECR
+                        docker tag $CONTAINER:latest $AWS_ACCOUNT.dkr.ecr.$REGION.amazonaws.com\$CONTAINER:latest
+                        docker push $AWS_ACCOUNT.dkr.ecr.$REGION.amazonaws.com\$CONTAINER:latest
+                        IMAGE_DIGEST=$(docker image inspect $AWS_ACCOUNT.dkr.ecr.$REGION.amazonaws.com\$CONTAINER:latest -f '{{join .RepoDigests ","}}')
+                        # Customize image 
+                        ARGOCD_SERVER=$ARGOCD_SERVER argocd --grpc-web app set $APP_NAME --kustomize-image $IMAGE_DIGEST
+                        
+                        # Deploy to ArgoCD
+                        ARGOCD_SERVER=$ARGOCD_SERVER argocd --grpc-web app sync $APP_NAME --force
+                        ARGOCD_SERVER=$ARGOCD_SERVER argocd --grpc-web app wait $APP_NAME --timeout 600
+                        '''
+               }
+            }
+        }
+
+        
+        stage ('Run_fuzzer') {
+            steps {
+                \\ Pull the docker image
+                sh'''
+                    # Pull the image
+                    $
+                    docker build . -t k8s-debian-test
+                '''
+            }
+        }
+
+        post {
+            success {
+
+            }
+            failure {
+
+            }
+        }
+
+    }
+}
+
+// pipeline {
+//   agent {
+//     kubernetes {
+//       label 'jenkins-slave'
+//       defaultContainer 'jnlp'
+//       yaml """
+// apiVersion: v1
+// kind: Pod
+// spec:
+//   containers:
+//   - name: dind
+//     image: docker:18.09-dind
+//     securityContext:
+//       privileged: true
+//   - name: docker
+//     env:
+//     - name: DOCKER_HOST
+//       value: 127.0.0.1
+//     image: docker:18.09
+//     command:
+//     - cat
+//     tty: true
+//   - name: tools
+//     image: argoproj/argo-cd-ci-builder:v0.13.1
+//     command:
+//     - cat
+//     tty: true
+// """
+//     }
+//   }
+//   stages {
+
+//     stage('Build') {
+//       environment {
+//         DOCKERHUB_CREDS = credentials('dockerhub')
+//       }
+//       steps {
+//         container('docker') {
+//           // Build new image
+//           sh "until docker ps; do sleep 3; done && docker build -t alexmt/argocd-demo:${env.GIT_COMMIT} ."
+//           // Publish new image
+//           sh "docker login --username $DOCKERHUB_CREDS_USR --password $DOCKERHUB_CREDS_PSW && docker push alexmt/argocd-demo:${env.GIT_COMMIT}"
+//         }
+//       }
+//     }
+
+//     stage('Build') {
+//       environment {
+//         DOCKERHUB_CREDS = credentials('dockerhub')
+//       }
+//       steps {
+//         container('docker') {
+//           // Build new image
+//           sh "until docker ps; do sleep 3; done && docker build -t alexmt/argocd-demo:${env.GIT_COMMIT} ."
+//           // Publish new image
+//           sh "docker login --username $DOCKERHUB_CREDS_USR --password $DOCKERHUB_CREDS_PSW && docker push alexmt/argocd-demo:${env.GIT_COMMIT}"
+//         }
+//       }
+//     }
+
+    
+
+    // stage('Deploy E2E') {
+    //   environment {
+    //     GIT_CREDS = credentials('git')
+    //   }
+    //   steps {
+    //     container('tools') {
+    //       sh "git clone https://$GIT_CREDS_USR:$GIT_CREDS_PSW@github.com/alexmt/argocd-demo-deploy.git"
+    //       sh "git config --global user.email 'ci@ci.com'"
+
+    //       dir("argocd-demo-deploy") {
+    //         sh "cd ./e2e && kustomize edit set image alexmt/argocd-demo:${env.GIT_COMMIT}"
+    //         sh "git commit -am 'Publish new version' && git push || echo 'no changes'"
+    //       }
+    //     }
+    //   }
+    // }
+
+    // stage('Deploy to Prod') {
+    //   steps {
+    //     input message:'Approve deployment?'
+    //     container('tools') {
+    //       dir("argocd-demo-deploy") {
+    //         sh "cd ./prod && kustomize edit set image alexmt/argocd-demo:${env.GIT_COMMIT}"
+    //         sh "git commit -am 'Publish new version' && git push || echo 'no changes'"
+    //       }
+    //     }
+    //   }
+    // }
+//   }
+// }
