@@ -46,6 +46,7 @@ Patching the argocd-server to NodePort
 Install ArgoCD CLI first.
 
 Add role in the argoCD.
+How? gear icon -> projects -> default
 
 Made a shell script to login through argocd cli for convenience. Run `./argocd_pwd.bash` to login to the server via argocd cli.
 
