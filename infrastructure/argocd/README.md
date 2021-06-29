@@ -45,7 +45,9 @@ Patching the argocd-server to NodePort
 
 Install ArgoCD CLI first.
 
-Made a shell script to login through argocd cli for convenience. Run `argocd_pwd.bash` to login to the server via argocd cli.
+Add role in the argoCD.
+
+Made a shell script to login through argocd cli for convenience. Run `./argocd_pwd.bash` to login to the server via argocd cli.
 
 
 `$ argocd proj role create-token default jenkins-deploy-role`
