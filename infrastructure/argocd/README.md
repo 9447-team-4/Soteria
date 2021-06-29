@@ -50,7 +50,7 @@ Add role in the argoCD.
 Made a shell script to login through argocd cli for convenience. Run `./argocd_pwd.bash` to login to the server via argocd cli.
 
 
-`$ argocd proj role create-token default jenkins-deploy-role`
+`$ argocd proj role create-token default {name you specified in argocd}`
 
 Add above output token to Jenkin's gloabl credential 
 
