@@ -15,9 +15,8 @@ Naviagte to http://127.0.0.1:8080/
 
 Use the default login:
 
-User:admin
-
-Password:admin
+* User:admin  
+* Password:admin
 
 Change password to "password" (Just to test).
 
@@ -26,7 +25,7 @@ Change password to "password" (Just to test).
 Navigate to desired folder to scan.
 
 ```
-wget https://raw.githubusercontent.com/9447-team-4/main/infrastructure/sonarqube/sonar-project.properties.git
+wget https://raw.githubusercontent.com/9447-team-4/main/infrastructure/sonarqube/sonar-project.properties
 docker run --rm -v $(pwd):/usr/src --network=host sonarsource/sonar-scanner-cli
 
 ```
@@ -48,12 +47,12 @@ On Jenkins navigate to "Manage Jenkins", click on "Configure System".
 
 * Locate "SonarQube servers" in "Configure System".  
 * Specify "Name" as "sonarqube".  
-    * Specify "Server URL" as
+    * Specify "Server URL" as:
 ```
 http://sonarqube-sonarqube.sonarqube.svc.cluster.local:9000
 ```  
-* Add a "Server authentication token"  
-* Kind: "secret text", secret: get from sonarqube (SonarQube->My Account->Security->Generate Tokens)  
+* Add a "Server authentication token".  
+* Kind: "secret text", secret: get from sonarqube (SonarQube->My Account->Security->Generate Tokens).  
 
 # Create new pipeline
 
@@ -88,8 +87,8 @@ On SonarQube navigate to "Administration".
 
 On SonarQube navigate to "Configurations" and select "Webhooks".
 
-* Create a webhook
-* Specify "URL" as "
+* Create a webhook.
+* Specify "URL" as:
 ```
 http://jenkins.jenkins.svc.cluster.local:8080/sonarqube-webhook/
 ```  
