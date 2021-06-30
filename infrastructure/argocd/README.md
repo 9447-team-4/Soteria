@@ -50,6 +50,7 @@ Add above output token to Jenkin's gloabl credential
 
 # ArgoCD CLI
 
+Ensure that the argocd binary is installed somewhere that is runnable by the Jenkins user. An example would be: -
 
 `$ pwd`
 `/home/jenkins`
@@ -65,6 +66,8 @@ Add above output token to Jenkin's gloabl credential
 
 ## Check it works
 `$ argocd version`
+
+
 
 # Sync the App
 
