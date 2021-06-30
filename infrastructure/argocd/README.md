@@ -49,16 +49,22 @@ Add above output token to Jenkin's gloabl credential
 
 
 # ArgoCD CLI
+* Synchronize The App (Optional)
 
-Ensure that the argocd binary is installed somewhere that is runnable by the Jenkins user. An example would be: -
+For convenience, the argocd CLI can be downloaded directly from the API server. This is useful so that the CLI used in the CI pipeline is always kept in-sync and uses argocd binary that is always compatible with the Argo CD API server.
 
-```
-xport ARGOCD_SERVER=argocd.mycompany.com
+export ARGOCD_SERVER=argocd.mycompany.com
 export ARGOCD_AUTH_TOKEN=<JWT token generated from project>
 curl -sSL -o /usr/local/bin/argocd https://${ARGOCD_SERVER}/download/argocd-linux-amd64
 argocd app sync guestbook
 argocd app wait guestbook
-```
+
+
+If automated synchronization is configured for the application, this step is unnecessary. 
+The controller will automatically detect the new config (fast tracked using a webhook, or polled every 3 minutes), and automatically sync the new manifests.
+
+
+If we want to use ArgoCD CLI in the Jenkins, ensure that the argocd binary is installed somewhere that is runnable by the Jenkins user. 
 
 
 ## Move it to the /usr/local/bin
