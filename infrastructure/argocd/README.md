@@ -52,11 +52,14 @@ Add above output token to Jenkin's gloabl credential
 
 Ensure that the argocd binary is installed somewhere that is runnable by the Jenkins user. An example would be: -
 
-`$ pwd`
-`/home/jenkins`
+```
+xport ARGOCD_SERVER=argocd.mycompany.com
+export ARGOCD_AUTH_TOKEN=<JWT token generated from project>
+curl -sSL -o /usr/local/bin/argocd https://${ARGOCD_SERVER}/download/argocd-linux-amd64
+argocd app sync guestbook
+argocd app wait guestbook
+```
 
-## Download the tool 
-`$ curl -LO https://github.com/argoproj/argo-cd/releases/download/v1.2.0/argocd-linux-amd64`
 
 ## Move it to the /usr/local/bin
 `$ sudo mv argocd-linux-amd64 /usr/local/bin/argocd`
@@ -92,3 +95,14 @@ Patching the argocd-server to LoadBalancer
 
 Patching the argocd-server to NodePort
 `kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "NodePort"}}'`
+
+
+
+#################
+# usage in gitea: 
+#################
+#
+# http://{server_name}.{namespace}.svc.cluster.local:{portnumber}/path/to/your/deployment/repo.git
+#
+# e.g. http://gitea-charts-http.default.svc.cluster.local:3000/haesun/Deployment.git
+#
