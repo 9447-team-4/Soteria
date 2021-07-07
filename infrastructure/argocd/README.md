@@ -110,7 +110,7 @@ steps:
 - name: fuzzer
   image: owasp/zap2docker-stable
   commands:
-  - blah blah
+  - Some commands to run the fuzzer towards the active target server
     -> Successful: Pipeline will send webhook to Gitea to notify the developer that the dynamic testing was successful.
     -> Failure: Breaks pipeline, ArgoCD will rollback the application to the previous deployed version by History ID. 
        The command for this is `argocd app rollback APPNAME ID [flags]`
