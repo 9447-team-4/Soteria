@@ -12,20 +12,22 @@ curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scr
 chmod 700 get_helm.sh
 ./get_helm.sh
 ```
-Then, navigate to the helm-chart folder and run:
+Then, navigate to the helm-chart folder and run (only has to be done once):
 ```
 helm dependency update 
 ```
 Finally, navigate to the root gitea folder and run:
 ```
-helm install gitea-charts helm-chart/ --values helm-chart/values.yaml --create-namespace gitea
+kubectl create namespace gitea
+kubectl create quota test --hard=count/persistentvolumeclaims=4 --namespace=gitea
+helm install gitea-charts helm-chart/ --values helm-chart/values.yaml --namespace gitea
 ```
-This will add 3 pods to your default kubernetes namespace.
+This will add 3 pods to your "gitea" namespace.
 
 ## Usage
 To open a UI to the gitea server run:
 ```
-kubectl port-forward gitea-charts-0 3000:3000
+kubectl -n gitea port-forward gitea-charts-0 3000:3000
 ```
 The ui is accesible from any browser at localhost:3000  
 The default admin account is:
@@ -45,7 +47,7 @@ Make sure python is installed in the gitea/default namespace
 
 ie.
 ```
-apk add python3
+apk add --no-cache python3 py3-pip
 ```
 OR
 ```
