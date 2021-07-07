@@ -92,7 +92,7 @@ ArgoCD will update and deploy with new GitOps Repo’s manifest. By having `argo
 (Note that fuzzer needs (documentation, openAPI) && (Active server)  )
    
 ** Inside Drone CI Pipeline
-        
+```
 kind: pipeline
 type: docker
 name: default
@@ -109,6 +109,7 @@ steps:
   - blah blah
     -> Successful: Pipeline will send webhook to Gitea to notify the developer that the dynamic testing was successful.
     -> Failure: Break pipeline, ArgoCD will rollback the application to the previous deployed version by History ID. The command for this is `argocd app rollback APPNAME ID [flags]`
+```
 **
 
 Our demo pipeline only covers the dev cluster, but ideally in the real world, for the production cluster we will open a new PR in order to push code from dev cluster to prod cluster Kubernetes.
