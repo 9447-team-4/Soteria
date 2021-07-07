@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: example-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/9447-team-4/Soteria.git 
+    targetRevision: HEAD
+    path: infrastructure/argocd/example-app
+    directory:
+      recurse: true
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: example-app
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: false
+
+#################
+# usage in gitea: 
+#################
+#
+# http://{server_name}.{namespace}.svc.cluster.local:{portnumber}/path/to/your/deployment/repo.git
+#
+# e.g. http://gitea-charts-http.default.svc.cluster.local:3000/haesun/Deployment.git
+#

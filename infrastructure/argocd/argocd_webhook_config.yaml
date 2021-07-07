@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-notifications-cm
+data:
+  template.github-webhook: |
+    webhook:
+      github:
+        method: POST
+        path: /repos/haeSunshim/testing-workflow/dispatches
+        body: |
+          {
+            "event_type": "webhook"
+          }
+  trigger.on-sync-succeeded: |
+    - when: app.status.operationState.phase in ['Succeeded']
+      send: [github-webhook]
+  service.webhook.github: |
+    url: https://api.github.com
+    headers: 
+    - name: Accept
+      value: application/vnd.github.everest-preview+json
+    - name: Authorization
+      value: token TOKEN
