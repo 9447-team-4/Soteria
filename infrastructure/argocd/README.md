@@ -127,14 +127,14 @@ all the static analysis and etc, if successful, updates/pushes the image
 step:
     specify image: argocd cli
     kubelint runs towards the manifests (Config files)
-    argocd app wait testingworkflow -> deploying dev cluster
+    `argocd app wait APPNAME` -> deploying into dev cluster
 
 next step:
     specify image: of owasp zap
     after steps johno figuring out
     -> exit status 0: successful, and something is failure
     -> YES: exit pipeline, pipeline send webhook to gitea
-    -> NO: break pipeline, argocd app rollback APPNAME ID [flags]
+    -> NO: break pipeline, `argocd app rollback APPNAME ID [flags]`
 
 ######################
 
