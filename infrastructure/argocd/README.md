@@ -113,37 +113,53 @@ Patching the argocd-server to NodePort
 # e.g. http://gitea-charts-http.default.svc.cluster.local:3000/haesun/Deployment.git
 #
 
-
-1. fuzzer needs a documentation / openAPI
-        &&
-2. active server    
-
-* Code pipeline (creating new feature) opens PR for feature branch -> master branch
-all the static analysis and etc, if successful, updates/pushes the image
-
-* GitOps pipeline opens PR (new release branch PR -> develop branch)
-
-######################
-step:
-    specify image: argocd cli
-    kubelint runs towards the manifests (Config files)
-    `argocd app wait APPNAME` -> deploying into dev cluster
-
-next step:
-    specify image: of owasp zap
-    after steps johno figuring out
-    -> exit status 0: successful, and something is failure
-    -> YES: exit pipeline, pipeline send webhook to gitea
-    -> NO: break pipeline, `argocd app rollback APPNAME ID [flags]`
-
-######################
-
-Not our demo part
-
-New PR:
-dev cluster -> prod cluster
+* Code pipeline (Source code): Opens PR for feature branch -> master branch
+Secret detection, static analysis and image scanning will run in the pipeline. If it passes all the tests, update and push image into the image registry. If fails, break the pipeline.
         
+<img width="676" alt="code pipeline" src="https://user-images.githubusercontent.com/58884456/124769606-f1c39e80-df7c-11eb-90ce-641d6f634aa0.png">
+
+* GitOps pipeline (Config manifest): Opens PR for the new release manifest.
 <img width="1368" alt="GitOps pipeline" src="https://user-images.githubusercontent.com/58884456/124769802-1e77b600-df7d-11eb-9eac-671ea28f4df8.png">
 
-<img width="676" alt="code pipeline" src="https://user-images.githubusercontent.com/58884456/124769606-f1c39e80-df7c-11eb-90ce-641d6f634aa0.png">
+
+######################
+kubelint runs towards the manifests config files.
+If it passes all the tests, developer can merge the PR, otherwise the pipeline blocks the PR from merging.
+        
+ArgoCD is monitoring the GitOps repo. So once the PR gets merged into main branch, ArgoCD will realise the change since the Kubernetes cluster’s manifest and GitOps manifest are different.
+
+ArgoCD will update and deploy with new GitOps Repo’s manifest. By having `argocd app wait APPNAME` step in the pipeline, it won't go to the next step until the sync is done, and once the sync is done (aka. ArgoCD deployed on Kubernetes Dev Cluster) fuzzer runs toward that live server. 
+(Note that fuzzer needs (documentation, openAPI) && (Active server)  )
+   
+** Inside Drone CI Pipeline
+        
+kind: pipeline
+type: docker
+name: default
+
+steps:        
+- name: cd
+  image: argoproj/argocd-cli
+  commands:
+  - argocd app wait APPNAME
+
+- name: fuzzer
+  image: owasp/zap2docker-stable
+  commands:
+  - blah blah
+    -> Successful: Pipeline will send webhook to Gitea to notify the developer that the dynamic testing was successful.
+    -> Failure: Break pipeline, ArgoCD will rollback the application to the previous deployed version by History ID. The command for this is `argocd app rollback APPNAME ID [flags]`
+**
+
+    
+
+######################
+
+Not our demo part but ideally in the real world, for the production cluster
+
+Open new PR:
+dev cluster -> prod cluster
+######################
+        
+
 
