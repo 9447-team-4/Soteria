@@ -91,7 +91,7 @@ ArgoCD is monitoring the GitOps repo. So once the PR gets merged into main branc
 ArgoCD will update and deploy with new GitOps Repo’s manifest. By having `argocd app wait APPNAME` step in the pipeline, it won't go to the next step until the sync is done, and once the sync is done (aka. ArgoCD deployed on Kubernetes Dev Cluster) fuzzer runs toward that live server. 
 (Note that fuzzer needs (documentation, openAPI) && (Active server)  )
    
-** Inside Drone CI Pipeline
+# Inside Drone CI Pipeline
 ```
 kind: pipeline
 type: docker
@@ -111,7 +111,6 @@ steps:
     -> Failure: Breaks pipeline, ArgoCD will rollback the application to the previous deployed version by History ID. 
        The command for this is `argocd app rollback APPNAME ID [flags]`
 ```
-**
 
 Our demo pipeline only covers the dev cluster, but ideally in the real world, for the production cluster we will open a new PR in order to push code from dev cluster to prod cluster Kubernetes.
         
