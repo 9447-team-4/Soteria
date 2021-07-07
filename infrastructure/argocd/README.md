@@ -143,6 +143,7 @@ Not our demo part
 New PR:
 dev cluster -> prod cluster
         
-<img width="331" alt="GitOps pipeline" src="https://user-images.githubusercontent.com/58884456/124769592-ee301780-df7c-11eb-8861-45ed898193b4.png">
+<img width="1368" alt="GitOps pipeline" src="https://user-images.githubusercontent.com/58884456/124769802-1e77b600-df7d-11eb-9eac-671ea28f4df8.png">
+
 <img width="676" alt="code pipeline" src="https://user-images.githubusercontent.com/58884456/124769606-f1c39e80-df7c-11eb-90ce-641d6f634aa0.png">
 
