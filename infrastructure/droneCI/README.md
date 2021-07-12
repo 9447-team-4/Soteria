@@ -11,7 +11,7 @@ Make sure you have Gitea instance up and running.
 	- Go to Applications section.
 	- Create a new OAuth2 Application.
 		-> Give it a name, eg: Drone.
-		-> For now, give it a dummy url. Change it later.
+		-> The redirect URL should be similar to the host url specified in the droneCI/server/drone-server-secret.yaml file with '/login' at the end.
 	- Once you click Create Application, it will generate Client ID and Client Secret.
 	- Copy the two and update these in the droneCI/server/drone-server-secret.yaml.
 
