@@ -113,7 +113,8 @@ steps:
   - Some commands to run the fuzzer towards the active target server
     -> Successful: Pipeline will send webhook to Gitea to notify the developer that the dynamic testing was successful.
     -> Failure: Breaks pipeline, ArgoCD will rollback the application to the previous deployed version by History ID. 
-       The command for this is `argocd app rollback APPNAME ID [flags]`
+       The command for this is `argocd app rollback APPNAME ID [flags]`. Once you rollback, the argoCD's autosync option will be turned off.
+       In order to automatically rollback, we can use 'Argo Rollouts - Kubernetes Progressive Delivery Controller'
 ```
 
 Our demo pipeline only covers the dev cluster, but ideally in the real world, for the production cluster we will open a new PR in order to push code from dev cluster to prod cluster Kubernetes.
