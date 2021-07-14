@@ -1,13 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: droneserver
+  name: drone-server-deployment
   labels:
-    app: drone-server
+    app: drone-server-deployment
 spec:
-  type: ClusterIP
-  selector:
-    app: drone-server
+  type: ExternalName
+  externalName: drone-server-deployment.drone.svc.cluster.local
   #ports:
   # - protocol: TCP
   #   name: drone
@@ -18,8 +17,7 @@ spec:
     - protocol: TCP
       name: http
       port: 80
-      targetPort: 80
-    - protocol: TCP
-      name: https
-      port: 443
-      targetPort: 443
+      targetPort: 8080
+  type: NodePort
+  selector:
+    app: drone-server-deployment
