@@ -7,6 +7,7 @@ To utilize the full potential of DroneCI, install postgres, drone-server and dro
 	- Drone-runners: These are what run the pipeline.
 
 Make sure you have Gitea instance up and running.
+	
 	- Click on the Gitea Profile.
 	- Go to Applications section.
 	- Create a new OAuth2 Application.
@@ -24,6 +25,7 @@ This should create the required pod for postgres service.
 ## Deploying Drone-Server
 
 You need to  
+
 	-> kubectl -n drone apply -f server/drone-server-secret.yaml
 	-> kubectl -n drone apply -f server/drone-server-service.yaml
 	-> kubectl -n drone apply -f server/drone-server-deployment.yaml
