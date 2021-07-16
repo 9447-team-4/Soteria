@@ -49,7 +49,7 @@ This will create the required pod for running Drone-server. To get the drone UI,
 	- kubectl -n drone apply -f runner/drone-runner-rbac.yaml
 	- kubectl -n drone apply -f runner/drone-runner-deployment.yaml
 
-##Drone UI
+## Drone UI
 
 	- Get the UI frome ${ngrok_drone_url}
 
