@@ -3,11 +3,11 @@ kind: Service
 metadata:
   name: droneserver
   labels:
-    app: drone-server
+    app: drone-server-deployment
 spec:
   type: ClusterIP
   selector:
-    app: drone-server
+    app: drone-server-deployment
   #ports:
   # - protocol: TCP
   #   name: drone
