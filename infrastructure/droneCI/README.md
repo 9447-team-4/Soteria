@@ -54,9 +54,12 @@ This will create the required pod for running Drone-server. To get the drone UI,
 	- Get the UI frome ${ngrok_drone_url}
 
 
--> On the welcome page click continue
+-> On the welcome page click continue.
+
 -> On the next page, enter the gitea_admin username and its password.
+
 -> After the authorization, Drone will show the register page. From the url above, remove the register endpoint.
+
 -> Hit Enter and it should take you to the Home page which will show any repos if you have in your gitea instance.
   - You can click the sync button if you add a repo afterwards.
 -> Click the repo link and then "Activate Repository".
