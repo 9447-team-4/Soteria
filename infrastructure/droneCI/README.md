@@ -55,13 +55,19 @@ This will create the required pod for running Drone-server. To get the drone UI,
 
 
 -> On the welcome page click continue.
+
 -> On the next page, enter the gitea_admin username and its password.
+
 -> After the authorization, Drone will show the register page. From the url above, remove the register endpoint.
+
 -> Hit Enter and it should take you to the Home page which will show any repos if you have in your gitea instance.
   - You can click the sync button if you add a repo afterwards.
+
 -> Click the repo link and then "Activate Repository".
+
 -> To run a pipeline, there needs to be a config file in the root of your gitea repo which drone will use.
   - For demo, copy the file in the droneCI folder called drone.yml into your local gitea branch and push it to gitea repo.
+
 -> Now go under settings, and in the Configuration section, add 'drone.yml' and click save.
 
 Now whenever you push any change, it should run the steps specified in the drone.yml file.
