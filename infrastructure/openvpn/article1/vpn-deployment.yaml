@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: myapi
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: myapi
+    spec:
+      containers:
+      - name: myapi
+        image: myapi:v1
+        ports:
+        - containerPort: 80
+        securityContext:
+          capabilities:
+            add:
+              - NET_ADMIN
+      imagePullSecrets:
+        - name: repository-secret
