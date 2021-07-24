@@ -11,7 +11,7 @@ Make sure you have Gitea instance up and running.
 	- Go to Applications section.
 	- Create a new OAuth2 Application.
 		-> Give it a name, eg: Drone.
-		-> For now, give it a dummy url. Change it later.
+		-> The redirect URL should be similar to the host url specified in the droneCI/server/drone-server-secret.yaml file with '/login' at the end.
 	- Once you click Create Application, it will generate Client ID and Client Secret.
 	- Copy the two and update these in the droneCI/server/drone-server-secret.yaml.
 
@@ -28,8 +28,15 @@ You need to
 	-> kubectl -n drone apply -f server/drone-server-service.yaml
 	-> kubectl -n drone apply -f server/drone-server-deployment.yaml
 
+kubectl -n drone apply -f server/drone-server-secret.yaml ; kubectl -n drone apply -f server/drone-server-service.yaml ; kubectl -n drone apply -f server/drone-server-deployment.yaml ; 
+
 This will create the required pod for running Drone-server. To get the drone UI, run:
 	-> kubectl -n drone port-forward ${drone_server_pod_name} ${your_desired_port}:80
+
+
+kubectl -n drone port-forward drone-server-deployment-54f77f646-nmkll 5000:80
+
+
 
 You should now be able to view the UI at http://localhost:${your_desired_port}
 

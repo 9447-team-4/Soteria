@@ -1,14 +1,14 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: drone-server
+  name: drone-server-deployment
   labels:
-    app: drone-server
+    app: drone-server-deployment
   annotations:
 spec:
   selector:
     matchLabels:
-      app: drone-server
+      app: drone-server-deployment
   replicas: 1
   strategy:
     type: RollingUpdate
@@ -18,11 +18,11 @@ spec:
   template:
     metadata:
       labels:
-        app: drone-server
+        app: drone-server-deployment
     spec:
       containers:
-      - name: drone-server
-        image: drone/drone:1.6.5
+      - name: drone-server-deployment
+        image: drone/drone:2.0.4
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80
@@ -46,8 +46,8 @@ spec:
           valueFrom:
             secretKeyRef:
               name: drone-server-secret
-              key: DRONE_SERVER_HOST
-        - name: DRONE_SERVER_HOST 
+              key: DRONE_GITEA_SERVER 
+        - name: DRONE_SERVER_HOST
           valueFrom:
             secretKeyRef:
               name: drone-server-secret
