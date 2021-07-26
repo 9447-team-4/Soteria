@@ -30,11 +30,11 @@ You need to
 	-> kubectl -n drone apply -f server/drone-server-deployment.yaml
 
 All in one command:
-`kubectl -n drone apply -f server/drone-server-secret.yaml ; kubectl -n drone apply -f server/drone-server-service.yaml ; kubectl -n drone apply -f server/drone-server-deployment.yaml` 
+`kubectl create namespace drone; kubectl -n drone apply -f postgres/postgres-deployment.yaml; kubectl -n drone apply -f server/drone-server-secret.yaml ; kubectl -n drone apply -f server/drone-server-service.yaml ; kubectl -n drone apply -f server/drone-server-deployment.yaml` 
 
 This will create the required pod for running Drone-server. To get the drone UI, run:
 	-> kubectl -n drone port-forward ${drone_server_pod_name} ${your_desired_port}:80 -n ${namespace}
-
+kubectl -n drone port-forward drone-server-deployment-54f77f646-k6wmx  5000:80 -n drone
 You should now be able to view the UI at http://localhost:${your_desired_port}
 
 ## Deploying Drone-Runner
