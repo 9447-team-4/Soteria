@@ -11,14 +11,14 @@ Make sure you have Gitea instance up and running.
 	- Go to Applications section.
 	- Create a new OAuth2 Application.
 		-> Give it a name, eg: Drone.
-		-> The redirect URL should be same as the `DRONE_GITEA_SERVER`'s value inside droneCI/server/drone-server-secret.yaml file with '/login' at the end.
-		# http://gitea-charts-http.gitea.svc.cluster.local:3000/user/login
+		-> The redirect URL should be same as the `DRONE_GITEA_SERVER`'s value inside droneCI/server/drone-server-secret.yaml file with `/user/login` at the end.
+		i.e. `http://gitea-charts-http.gitea.svc.cluster.local:3000/user/login`
 	- Once you click Create Application, it will generate Client ID and Client Secret.
-	- Copy the two and update these in the droneCI/server/drone-server-secret.yaml. Also for the `DRONE_GITEA_SERVER`, you should put the url that you obtain by running `minikube service --url gitea-charts-http -n gitea`.
+	- Copy the two and update these in the droneCI/server/drone-server-secret.yaml.
 
 ## Deploying Postgres for Persistence
 	-> kubectl create namespace drone
-	-> kubectl -n drone2 apply -f postgres/postgres-deployment.yaml
+	-> kubectl -n drone apply -f postgres/postgres-deployment.yaml
 
 This should create the required pod for postgres service.
 
@@ -30,7 +30,7 @@ You need to
 	-> kubectl -n drone apply -f server/drone-server-deployment.yaml
 
 All in one command:
-`kubectl -n drone2 apply -f server/drone-server-secret.yaml ; kubectl -n drone2 apply -f server/drone-server-service.yaml ; kubectl -n drone2 apply -f server/drone-server-deployment.yaml` 
+`kubectl -n drone apply -f server/drone-server-secret.yaml ; kubectl -n drone apply -f server/drone-server-service.yaml ; kubectl -n drone apply -f server/drone-server-deployment.yaml` 
 
 This will create the required pod for running Drone-server. To get the drone UI, run:
 	-> kubectl -n drone port-forward ${drone_server_pod_name} ${your_desired_port}:80 -n ${namespace}
