@@ -5,7 +5,7 @@ metadata:
   labels:
     app: drone-server-deployment
 spec:
-  type: LoadBalancer
+  type: NodePort
   selector:
     app: drone-server-deployment
   ports:
