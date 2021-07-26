@@ -1,29 +1,19 @@
+# Using Telepresence
+
+If you are testing with minikube,
+
 `minikube start --vm-driver=hyperkit`
 
-<!-- kubectl expose deployment drone-server-deployment --port=80 --target-port=8080 -->
+Install Telepresence first. The way differ by your OS but if you are a mac user, simply `brew install datawire/blackbird/telepresence`.
 
-Redirect URI `http://drone.soteria.com/login`
+Prerequisite: Make sure you have DroneCI, Gitea instance up and running.
 
+By running `kubectl get ns,svc,deploy,po` check the name of your deployments and services (check service names for gitea and drone. They MUST be NodePort.)
 
-kubectl get deployment -n drone
+Check telepresence version `telepresence version`
 
-brew install datawire/blackbird/telepresence
-
-kubectl expose deploy drone-server-deployment --port 80 --target-port 5000 -n drone
-kubectl get service drone-server-deployment -n drone
-
-kubectl get deployments -n drone
-<!-- kubectl expose deployment drone-server-deployment  --type=LoadBalancer --port=5000 -n drone -->
-
-<!-- kubectl patch svc drone-server-deployment -p '{"spec": {"type": "NodePort"}}' -n drone -->
-kubectl patch svc gitea-charts-http  -p '{"spec": {"type": "NodePort"}}' -n gitea 
-kubectl get service droneserver -n drone
-
-<!-- minikube service --url drone-server-deployment -n drone -->
-minikube service --url droneserver -n drone
-
-kubectl -n drone port-forward drone-server-deployment-54f77f646-k5v59 5000:80
-
-minikube service --url gitea-charts-http  -n gitea
-
-kubectl get ns,svc,deploy,po -n gitea
+# Establish a connection to the cluster (outbound traffic)
+Let telepresence connect:
+`telepresence connect`
+A session is now active and outbound connections will be routed to the cluster. I.e. your laptop is "inside" the cluster. Since we are using Minikube at this stage, run `minikube service --url gitea-charts-http -n gitea` to find the gitea server URL.
+The output and now this url is accessible.

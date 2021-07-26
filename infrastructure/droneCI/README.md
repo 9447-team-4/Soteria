@@ -11,9 +11,9 @@ Make sure you have Gitea instance up and running.
 	- Go to Applications section.
 	- Create a new OAuth2 Application.
 		-> Give it a name, eg: Drone.
-		-> The redirect URL should be similar to the host url specified in the droneCI/server/drone-server-secret.yaml file with '/login' at the end.
+		-> The redirect URL should be same as the `DRONE_GITEA_SERVER`'s value inside droneCI/server/drone-server-secret.yaml file with '/login' at the end.
 	- Once you click Create Application, it will generate Client ID and Client Secret.
-	- Copy the two and update these in the droneCI/server/drone-server-secret.yaml.
+	- Copy the two and update these in the droneCI/server/drone-server-secret.yaml. Also for the `DRONE_GITEA_SERVER`, you should put the url that you obtain by running `minikube service --url gitea-charts-http -n gitea`.
 
 ## Deploying Postgres for Persistence
 	-> kubectl create namespace drone
@@ -28,15 +28,11 @@ You need to
 	-> kubectl -n drone apply -f server/drone-server-service.yaml
 	-> kubectl -n drone apply -f server/drone-server-deployment.yaml
 
+All in one command:
 `kubectl -n drone apply -f server/drone-server-secret.yaml ; kubectl -n drone apply -f server/drone-server-service.yaml ; kubectl -n drone apply -f server/drone-server-deployment.yaml` 
 
 This will create the required pod for running Drone-server. To get the drone UI, run:
 	-> kubectl -n drone port-forward ${drone_server_pod_name} ${your_desired_port}:80
-
-
-`kubectl -n drone port-forward drone-server-deployment-54f77f646-2wmrq 5000:80`
-
-
 
 You should now be able to view the UI at http://localhost:${your_desired_port}
 
@@ -44,7 +40,3 @@ You should now be able to view the UI at http://localhost:${your_desired_port}
 
 	- kubectl -n drone apply -f runner/drone-runner-rbac.yaml ;kubectl -n drone apply -f runner/drone-runner-deployment.yaml
 
-
-
-
-http://{server_name}.{namespace}.svc.cluster.local:{portnumber}
