@@ -28,14 +28,15 @@ securityContext: {}
 
 service:
   http:
-    type: ClusterIP
+    type: NodePort
     port: 3000
-    clusterIP: None
-    #loadBalancerIP:
-    #nodePort:
-    #externalTrafficPolicy:
-    #externalIPs:
-    loadBalancerSourceRanges: []
+    nodePort: 30280
+    # clusterIP: None
+    # targetPort: 3000
+    # loadBalancerIP:
+    # externalTrafficPolicy:
+    # externalIPs:
+    # loadBalancerSourceRanges: []
     annotations:
   ssh:
     type: ClusterIP
