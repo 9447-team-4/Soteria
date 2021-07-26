@@ -21,6 +21,9 @@ Finally, navigate to the root gitea folder and run:
 kubectl create namespace gitea
 kubectl create quota test --hard=count/persistentvolumeclaims=4 --namespace=gitea
 helm install gitea-charts helm-chart/ --values helm-chart/values.yaml --namespace gitea
+
+helm upgrade gitea-charts helm-chart/ --values helm-chart/values.yaml --namespace gitea
+
 ```
 This will add 3 pods to your "gitea" namespace.
 

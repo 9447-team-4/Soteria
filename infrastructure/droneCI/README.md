@@ -34,7 +34,7 @@ This will create the required pod for running Drone-server. To get the drone UI,
 	-> kubectl -n drone port-forward ${drone_server_pod_name} ${your_desired_port}:80
 
 
-`kubectl -n drone port-forward drone-server-deployment-54f77f646-k5v59 5000:80`
+`kubectl -n drone port-forward drone-server-deployment-54f77f646-2wmrq 5000:80`
 
 
 
@@ -47,3 +47,4 @@ You should now be able to view the UI at http://localhost:${your_desired_port}
 
 
 
+http://{server_name}.{namespace}.svc.cluster.local:{portnumber}

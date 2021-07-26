@@ -15,7 +15,7 @@ kubectl get service drone-server-deployment -n drone
 kubectl get deployments -n drone
 <!-- kubectl expose deployment drone-server-deployment  --type=LoadBalancer --port=5000 -n drone -->
 
-<!-- kubectl patch svc drone-server-deployment -p '{"spec": {"type": "LoadBalancer"}}' -n drone -->
+<!-- kubectl patch svc drone-server-deployment -p '{"spec": {"type": "NodePort"}}' -n drone -->
 kubectl patch svc gitea-charts-http  -p '{"spec": {"type": "NodePort"}}' -n gitea 
 kubectl get service droneserver -n drone
 
