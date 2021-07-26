@@ -16,3 +16,6 @@ Check telepresence version `telepresence version`
 Let telepresence connect:
 `telepresence connect`
 A session is now active and outbound connections will be routed to the cluster. I.e. your laptop is "inside" the cluster.
+
+`minikube service --url droneserver -n drone`
+`minikube service --url gitea-charts-http -n gitea`
