@@ -2,7 +2,8 @@
 
 If you are testing with minikube,
 
-`minikube start --vm-driver=hyperkit`
+<!-- `minikube start --vm-driver=hyperkit` -->
+`minikube start --memory=4400mb --vm-driver=hyperkit`
 
 Install Telepresence first. The way differ by your OS but if you are a mac user, simply `brew install datawire/blackbird/telepresence`.
 

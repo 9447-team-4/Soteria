@@ -11,7 +11,7 @@ Make sure you have Gitea instance up and running.
 	- Go to Applications section.
 	- Create a new OAuth2 Application.
 		-> Give it a name, eg: Drone.
-		-> The redirect URL should be `http://192.168.64.18:32175/login`
+		-> The redirect URL should be `http://192.168.64.19:32175/login`
 		
 	- Once you click Create Application, it will generate Client ID and Client Secret.
 	- Copy the two and update these in the droneCI/server/drone-server-secret.yaml.
@@ -37,6 +37,8 @@ All in one command:
 This will create the required pod for running Drone-server.
 
 ## Deploying Drone-Runner
-
+kubectl apply -f gitea-reporter/gitea-reporter-configmap.yaml -n drone
 	- kubectl -n drone apply -f runner/drone-runner-rbac.yaml ;kubectl -n drone apply -f runner/drone-runner-deployment.yaml
 
+
+kubectl exec --stdin --tty -n drone drone-runner-f59cc544c-cf8pc    -- /bin/sh

@@ -50,7 +50,8 @@ nginx:
   enabled: false
 
 service:
-  type: ClusterIP
+  type: NodePort
+  nodePort: 30281
   externalPort: 9000
   internalPort: 9000
   labels:
