@@ -55,7 +55,7 @@ ingress:
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
-    - 192.168.64.19:30280
+    - 192.168.99.132:30280
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
@@ -130,7 +130,7 @@ gitea:
   admin:
     #existingSecret: gitea-admin-secret
     username: gitea_admin
-    password: r8sA8CPHD9!bt6d
+    password: password
     email: "gitea@local.domain"
 
   metrics:

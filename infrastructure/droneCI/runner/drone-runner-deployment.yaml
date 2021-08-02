@@ -16,10 +16,25 @@ spec:
     spec:
       serviceAccountName: drone-runner
       containers:
+      
+      - name: secrets
+        image: drone/kubernetes-secrets:latest
+        ports:
+        - containerPort: 3050
+        env:
+        - name: SECRET_KEY
+          value: 8ba60e6c490b7dc9fc147897e6c4f40id  
+      
       - name: runner
         image: drone/drone-runner-kube:latest
         ports:
         - containerPort: 3000
+        securityContext:
+          privileged: true
+          capabilities:
+            add:
+              - NET_ADMIN
+              - SYS_ADMIN
         env:
         - name: DRONE_NAMESPACE_DEFAULT
           value: drone
@@ -34,6 +49,13 @@ spec:
             secretKeyRef:
               name: drone-server-secret
               key: DRONE_RPC_SECRET
+        - name: DRONE_SECRET_PLUGIN_ENDPOINT
+          value: http://drone-secret-service:3050
+        - name: DRONE_SECRET_SECRET
+          value: 8ba60e6c490b7dc9fc147897e6c4f40id
+
+
+           
 ---
 apiVersion: v1
 kind: ServiceAccount
