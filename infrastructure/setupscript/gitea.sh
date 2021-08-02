@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 
 cd ..
-cd infrastructure/gitea/helm-chart/
+cd gitea/helm-chart/
 helm dependency update
 kubectl create namespace gitea
 kubectl create quota test --hard=count/persistentvolumeclaims=4 --namespace=gitea
