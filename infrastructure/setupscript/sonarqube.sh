@@ -1,4 +1,5 @@
-#!/bin/sh
+#! /usr/bin/env bash
+
 cd ../
 cd sonarqube/
 helm dependency update

@@ -1,4 +1,4 @@
-#!/bin/sh
+#! /usr/bin/env bash
 #     GITEA_TOKEN={{GITEA_TOKEN}}
 #     GITEA_USERNAME={{GITEA_USERNAME}}
 #     GITEA_HOST={{GITEA_HOST}}
@@ -8,6 +8,7 @@
 #     SONAR_LOGIN={{SONAR_USER}}
 #     SONAR_PASSWORD={{SONAR_PASSWORD}}
 #     SONAR_KEY={{GITEA_USERNAME}}:{{GITEA_REPO}}
+
 cd ../
 cd telepresence/droneCI/
 echo "Setting up drone config map"
