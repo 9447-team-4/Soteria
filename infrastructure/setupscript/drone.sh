@@ -14,9 +14,9 @@ echo "Enter your Gitea token"
 read GITEA_SECRET
 echo "Enter your Gitea OAuth token"
 read GITEA_OAUTH
-# sed -i 's|{{GITEA_SECRET}}|$GITEA_SECRET|g' drone-server-secret.yaml
+# sed -i 's|{{GITEA_TOKEN}}|$GITEA_TOKEN|g' drone-server-secret.yaml
 # sed -i 's|{{GITEA_OAUTH}}|$GITEA_OAUTH|g' drone-server-secret.yaml
-sed -i '' 's|{{GITEA_SECRET}}|$GITEA_SECRET|g' drone-server-secret.yaml # MACOS
+sed -i '' 's|{{GITEA_TOKEN}}|$GITEA_TOKEN|g' drone-server-secret.yaml # MACOS
 sed -i '' 's|{{GITEA_OAUTH}}|$GITEA_OAUTH|g' drone-server-secret.yaml # MACOS
 cd ..
 kubectl create namespace drone

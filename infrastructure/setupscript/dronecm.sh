@@ -35,9 +35,19 @@ stty echo
 echo "Enter sonarqube project key:"
 read SONAR_KEY
 echo $SONAR_PASSWORD
+cd gitea-reporter/
+sed -i '' 's|{{GITEA_TOKEN}}|$GITEA_TOKEN|g' drone-server-secret.yaml # MACOS
+sed -i '' 's|{{GITEA_USERNAME}}|$GITEA_USERNAME|g' drone-server-secret.yaml # MACOS
+sed -i '' 's|{{GITEA_HOST}}|$GITEA_HOST|g' drone-server-secret.yaml # MACOS
+sed -i '' 's|{{GITEA_PORT}}|$GITEA_PORT|g' drone-server-secret.yaml # MACOS
+sed -i '' 's|{{GITEA_REPO}}|$GITEA_REPO|g' drone-server-secret.yaml # MACOS
+sed -i '' 's|{{SONAR_URL}}|$SONAR_URL|g' drone-server-secret.yaml # MACOS
+sed -i '' 's|{{SONAR_USER}}|$SONAR_USER|g' drone-server-secret.yaml # MACOS
+sed -i '' 's|{{SONAR_PASSWORD}}|$SONAR_PASSWORD|g' drone-server-secret.yaml # MACOS
+sed -i '' 's|{{SONAR_KEY}}|$SONAR_KEY|g' drone-server-secret.yaml # MACOS
 # kubectl get cm -n drone gitea-reporter-configmap -o yaml | sed "s|{{SONAR_URL}}|$SONAR_URL|" | sed "s|{{SONAR_USER}}|$SONAR_USER|" | sed "s|{{SONAR_PASSWORD}}|$SONAR_PASSWORD|" | sed "s|{{SONAR_KEY}}|$SONAR_KEY|" | kubectl apply -f -
 kubectl get cm -n drone gitea-reporter-configmap -o yaml | sed "s|{{GITEA_TOKEN}}|$GITEA_TOKEN|" | kubectl apply -f -
-kubectl get cm -n drone gitea-reporter-configmap -o yaml | sed "s|{{GITEA_USERNAME}}|$GITEA_USERNAMEUSERNAME|" | kubectl apply -f -
+kubectl get cm -n drone gitea-reporter-configmap -o yaml | sed "s|{{GITEA_USERNAME}}|$GITEA_USERNAME|" | kubectl apply -f -
 kubectl get cm -n drone gitea-reporter-configmap -o yaml | sed "s|{{GITEA_HOST}}|$GITEA_HOST|" | kubectl apply -f -
 kubectl get cm -n drone gitea-reporter-configmap -o yaml | sed "s|{{GITEA_PORT}}|$GITEA_PORT|" | kubectl apply -f -
 kubectl get cm -n drone gitea-reporter-configmap -o yaml | sed "s|{{GITEA_REPO}}|$GITEA_REPO|" | kubectl apply -f -
