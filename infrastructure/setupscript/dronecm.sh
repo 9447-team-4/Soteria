@@ -38,7 +38,7 @@ read SONAR_KEY
 cd gitea-reporter/
 SONAR_URL=$(minikube service --url sonarqube-sonarqube -n sonarqube)
 GITEA_URL=$(minikube service --url gitea-charts-http -n gitea)
-GITEA_URL=$(echo GITEA_URL | sed "s|//||")
+GITEA_URL=$(echo $GITEA_URL | sed "s|//||")
 IFS=':'
 read -a GITEA_URL_ARRAY <<< "$GITEA_URL"
 sed -i "" "s|{{GITEA_TOKEN}}|$GITEA_TOKEN|g" gitea-reporter-configmap.yaml # MACOS
