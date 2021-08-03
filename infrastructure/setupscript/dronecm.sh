@@ -53,8 +53,8 @@ sed -i "" "s|{{SONAR_PASSWORD}}|$SONAR_PASSWORD|g" gitea-reporter-configmap.yaml
 # kubectl get cm -n drone gitea-reporter-configmap -o yaml | sed "s|{{SONAR_URL}}|$SONAR_URL|" | sed "s|{{SONAR_USER}}|$SONAR_USER|" | sed "s|{{SONAR_PASSWORD}}|$SONAR_PASSWORD|" | sed "s|{{SONAR_KEY}}|$SONAR_KEY|" | kubectl apply -f -
 kubectl get cm -n drone gitea-reporter-configmap -o yaml | sed "s|{{GITEA_TOKEN}}|$GITEA_TOKEN|" | kubectl apply -f -
 kubectl get cm -n drone gitea-reporter-configmap -o yaml | sed "s|{{GITEA_USERNAME}}|$GITEA_USERNAME|" | kubectl apply -f -
-kubectl get cm -n drone gitea-reporter-configmap -o yaml | sed "s|{{GITEA_HOST}}|$GITEA_HOST|" | kubectl apply -f -
-kubectl get cm -n drone gitea-reporter-configmap -o yaml | sed "s|{{GITEA_PORT}}|$GITEA_PORT|" | kubectl apply -f -
+kubectl get cm -n drone gitea-reporter-configmap -o yaml | sed "s|{{GITEA_HOST}}|${GITEA_URL_ARRAY[1]}|" | kubectl apply -f -
+kubectl get cm -n drone gitea-reporter-configmap -o yaml | sed "s|{{GITEA_PORT}}|${GITEA_URL_ARRAY[2]}|" | kubectl apply -f -
 kubectl get cm -n drone gitea-reporter-configmap -o yaml | sed "s|{{GITEA_REPO}}|$GITEA_REPO|" | kubectl apply -f -
 kubectl get cm -n drone gitea-reporter-configmap -o yaml | sed "s|{{SONAR_URL}}|$SONAR_URL|" | kubectl apply -f -
 kubectl get cm -n drone gitea-reporter-configmap -o yaml | sed "s|{{SONAR_USER}}|$SONAR_USER|" | kubectl apply -f -
