@@ -9,15 +9,15 @@ telepresence connect # CHECK LATER
 MINIKUBE_IP=$(minikube ip)
 cd ../
 cd telepresence/droneCI/server/
-sed -i 's|{{MINIKUBE_IP}}|$MINIKUBE_IP|' drone-server-secret.yaml
+sed -i "s|{{MINIKUBE_IP}}|$MINIKUBE_IP|" drone-server-secret.yaml
 echo "Enter your Gitea token"
 read GITEA_SECRET
-echo "Enter your Gitea OAuth token"
-read GITEA_OAUTH
-# sed -i 's|{{GITEA_TOKEN}}|$GITEA_TOKEN|g' drone-server-secret.yaml
-# sed -i 's|{{GITEA_OAUTH}}|$GITEA_OAUTH|g' drone-server-secret.yaml
-sed -i '' 's|{{GITEA_TOKEN}}|$GITEA_TOKEN|g' drone-server-secret.yaml # MACOS
-sed -i '' 's|{{GITEA_OAUTH}}|$GITEA_OAUTH|g' drone-server-secret.yaml # MACOS
+# echo "Enter your Gitea OAuth token"
+# read GITEA_OAUTH
+# sed -i "s|{{GITEA_TOKEN}}|$GITEA_TOKEN|g" drone-server-secret.yaml
+# sed -i "s|{{GITEA_OAUTH}}|$GITEA_OAUTH|g" drone-server-secret.yaml
+sed -i "" "s|{{GITEA_TOKEN}}|$GITEA_TOKEN|g" drone-server-secret.yaml # MACOS
+# sed -i "" "s|{{GITEA_OAUTH}}|$GITEA_OAUTH|g" drone-server-secret.yaml # MACOS
 cd ..
 kubectl create namespace drone
 kubectl -n drone apply -f postgres/
@@ -34,3 +34,8 @@ kubectl wait --for=condition=ready --timeout 60s pod -n drone $POD_NAME
 echo "Drone setup complete :)"
 echo "Drone server ip:"
 minikube service --url droneserver -n drone
+# Done after server up?
+echo "Enter your Gitea OAuth token"
+read GITEA_OAUTH
+sed -i "" "s|{{GITEA_OAUTH}}|$GITEA_OAUTH|g" drone-server-secret.yaml # MACOS
+kubectl -n drone apply -f server/
