@@ -37,5 +37,5 @@ minikube service --url droneserver -n drone
 # Done after server up?
 echo "Enter your Gitea OAuth token"
 read GITEA_OAUTH
-sed -i "" "s|{{GITEA_OAUTH}}|$GITEA_OAUTH|g" drone-server-secret.yaml # MACOS
+sed -i "" "s|{{GITEA_OAUTH}}|$GITEA_OAUTH|g" server/drone-server-secret.yaml # MACOS
 kubectl -n drone apply -f server/
