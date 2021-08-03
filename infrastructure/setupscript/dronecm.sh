@@ -32,8 +32,8 @@ echo "Enter your sonarqube password or leave blank if using token:"
 stty -echo
 read SONAR_PASSWORD;
 stty echo
-echo "Enter sonarqube project key:"
-read SONAR_KEY
+# echo "Enter sonarqube project key:" # NOT USED?
+# read SONAR_KEY
 # echo $SONAR_PASSWORD
 cd gitea-reporter/
 SONAR_URL=$(minikube service --url sonarqube-sonarqube -n sonarqube)
