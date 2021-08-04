@@ -10,10 +10,6 @@ MINIKUBE_IP=$(minikube ip)
 cd ../
 cd telepresence/droneCI/server/
 sed -i "s|{{MINIKUBE_IP}}|$MINIKUBE_IP|" drone-server-secret.yaml
-# echo "Enter your Gitea OAuth token"
-# read GITEA_OAUTH
-# sed -i "s|{{GITEA_TOKEN}}|$GITEA_TOKEN|g" drone-server-secret.yaml
-# sed -i "s|{{GITEA_OAUTH}}|$GITEA_OAUTH|g" drone-server-secret.yaml
 cd ..
 kubectl create namespace drone
 kubectl -n drone apply -f postgres/
@@ -32,9 +28,11 @@ echo "Drone server ip:"
 minikube service --url droneserver -n drone | head -1
 # Done after server up?
 echo "Enter your Gitea token"
-read GITEA_SECRET
+read GITEA_TOKEN
 echo "Enter your Gitea OAuth token"
 read GITEA_OAUTH
 sed -i "" "s|GITEA_TOKEN_REPLACE|$GITEA_TOKEN|g" server/drone-server-secret.yaml # MACOS
 sed -i "" "s|GITEA_OAUTH_REPLACE|$GITEA_OAUTH|g" server/drone-server-secret.yaml # MACOS
+# sed -i "s|{{GITEA_TOKEN}}|$GITEA_TOKEN|g" drone-server-secret.yaml
+# sed -i "s|{{GITEA_OAUTH}}|$GITEA_OAUTH|g" drone-server-secret.yaml
 kubectl -n drone apply -f server/
