@@ -19,6 +19,9 @@ stringData:
     {{- if not .Values.image.rootless }}
     chown 1000:1000 /data
     {{- end }}
+    apk add --no-cache python3 py3-pip
+    pip install ggshield
+
     mkdir -p /data/git/.ssh
     chmod -R 700 /data/git/.ssh
     mkdir -p /data/gitea/conf
